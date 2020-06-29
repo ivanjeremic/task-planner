@@ -20,11 +20,21 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     backgroundColor: theme.palette.background.paper
+  },
+  demo: {
+    width: "100%"
+  },
+  calendarbtn: {
+    backgroundColor: "#007b83",
+    color: "#ffffff",
+    "&:hover": {
+      backgroundColor: "#007b83"
+    }
   }
 }));
 
 export default function StatusList(props) {
-  const { tasks, setTasts } = props;
+  const { tasks } = props;
   const classes = useStyles();
   let history = useHistory();
 
@@ -34,8 +44,8 @@ export default function StatusList(props) {
 
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+      <Grid spacing={2}>
+        <Grid item>
           <div className={classes.demo}>
             <List>
               <ListItem>
@@ -43,7 +53,11 @@ export default function StatusList(props) {
                   Task Status
                 </Typography>
                 <ListItemSecondaryAction>
-                  <IconButton edge="end" onClick={handleClick}>
+                  <IconButton
+                    className={classes.calendarbtn}
+                    edge="end"
+                    onClick={handleClick}
+                  >
                     <DateRangeIcon />
                   </IconButton>
                 </ListItemSecondaryAction>

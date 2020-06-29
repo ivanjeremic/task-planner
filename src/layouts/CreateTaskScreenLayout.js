@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -6,12 +7,16 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import Avatar from "@material-ui/core/Avatar";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import List from "@material-ui/core/List";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -20,6 +25,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import BurgerMenu from "./BurgerMenu";
+import { useAppState } from "../context/StateContext";
 
 const drawerWidth = 240;
 
@@ -44,10 +51,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
+    marginRight: theme.spacing(2)
   },
   // necessary for content to be below app bar
   toolbar: {
@@ -91,21 +95,34 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CreateTaskScreenLayout(props) {
-  const { tasks, window, setTasts } = props;
-  const [title, setTitle] = React.useState("");
-  const [descrip, setdescrip] = React.useState("");
-
+  const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [value, setValue] = React.useState("Your description");
+  const [open, setOpen] = React.useState(false);
 
-  const handleChange = event => {
-    setValue(event.target.value);
-  };
+  const {
+    tasks,
+    title,
+    setTitle,
+    descrip,
+    setdescrip,
+    status,
+    setStatus,
+    setTasks
+  } = useAppState();
 
   const classes = useStyles();
   const theme = useTheme();
 
   let history = useHistory();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   function handleClick() {
     history.push("/");
@@ -116,7 +133,7 @@ function CreateTaskScreenLayout(props) {
   }
 
   const addTaskHandler = () => {
-    setTasts([
+    setTasks([
       ...tasks,
       {
         title: title,
@@ -126,6 +143,8 @@ function CreateTaskScreenLayout(props) {
         status: "open"
       }
     ]);
+    setTitle("");
+    setdescrip("");
     // redirect to home
     redirectAddTask();
   };
@@ -213,7 +232,7 @@ function CreateTaskScreenLayout(props) {
               keepMounted: true // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <BurgerMenu />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -224,7 +243,7 @@ function CreateTaskScreenLayout(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            <BurgerMenu />
           </Drawer>
         </Hidden>
       </nav>
@@ -232,7 +251,6 @@ function CreateTaskScreenLayout(props) {
         <div className={classes.toolbar} />
         <div className={classes.form}>
           <TextField
-            fullWidth
             label="Next appointment"
             type="datetime-local"
             defaultValue="2017-05-24T10:30"
@@ -244,14 +262,34 @@ function CreateTaskScreenLayout(props) {
           <Divider />
           <TextField
             fullWidth
-            value={descrip}
-            onChange={e => setdescrip(e.target.value)}
             label="Description"
             multiline
             rows={9}
             value={descrip}
             onChange={e => setdescrip(e.target.value)}
           />
+          <div style={{ margin: "20px" }}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-controlled-open-select-label">
+                Status
+              </InputLabel>
+              <Select
+                labelId="demo-controlled-open-select-label"
+                id="demo-controlled-open-select"
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                value={status}
+                onChange={e => setStatus(e.target.value)}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={10}>Done</MenuItem>
+                <MenuItem value={20}>In Progress</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
           <Button
             onClick={addTaskHandler}
             variant="contained"

@@ -1,6 +1,6 @@
 import React from "react";
-import Calendar from "../components/Calender";
+import Timeslots from "../components/Timeslots";
 
 export default function CalendarScreen() {
-  return <Calendar />;
+  return <Timeslots />;
 }

@@ -7,33 +7,26 @@ import Calendar from "./components/Calender";
 import HomeScreenLayout from "./layouts/HomeScreenLayout";
 import CalendarScreenLayout from "./layouts/CalendarScreenLayout";
 import CreateTaskScreen from "./pages/CreateTaskScreen";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import CalendarScreen from "./pages/CalendarScreen";
+import { StateProvider } from "./context/StateContext";
 
 function RouterComponent() {
-  const [tasks, setTasts] = useState([
-    {
-      title: "Joes",
-      description: "lorem hjaskj wlkd",
-      date: "22.06.1989",
-      time: "22:00",
-      status: "open"
-    }
-  ]);
-
   return (
     <Router>
       <Switch>
         <Route exact path="/">
           <HomeScreenLayout>
-            <HomeScreen tasks={tasks} setTasts={setTasts} />
+            <HomeScreen />
           </HomeScreenLayout>
         </Route>
         <Route path="/calendar">
           <CalendarScreenLayout>
-            <Calendar />
+            <CalendarScreen />
           </CalendarScreenLayout>
         </Route>
         <Route path="/add-task">
-          <CreateTaskScreen tasks={tasks} setTasts={setTasts} />
+          <CreateTaskScreen />
         </Route>
       </Switch>
     </Router>
@@ -42,7 +35,9 @@ function RouterComponent() {
 
 ReactDOM.render(
   <React.StrictMode>
-    <RouterComponent />
+    <StateProvider>
+      <RouterComponent />
+    </StateProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

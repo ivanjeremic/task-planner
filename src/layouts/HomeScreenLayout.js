@@ -16,6 +16,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import BurgerMenu from "./BurgerMenu";
 
 const drawerWidth = 240;
 
@@ -155,7 +156,7 @@ function HomeScreenLayout(props) {
               keepMounted: true // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <BurgerMenu />
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -166,7 +167,7 @@ function HomeScreenLayout(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            <BurgerMenu />
           </Drawer>
         </Hidden>
       </nav>

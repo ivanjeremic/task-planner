@@ -1,4 +1,6 @@
 {
-    "deno.enable": false,
-    "git.ignoreLimitWarning": true
+  "deno.enable": false,
+  "git.ignoreLimitWarning": true,
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false
 }
