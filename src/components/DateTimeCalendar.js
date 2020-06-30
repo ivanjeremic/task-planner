@@ -1,25 +1,25 @@
-import React from "react";
-import { Calendar, Views, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
+import React from 'react';
+import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
 
 const events = [
   {
     id: 11,
-    title: "Birthday Party",
+    title: 'Birthday Party',
     start: new Date(2020, 5, 30, 10, 0, 0),
-    end: new Date(2020, 6, 1, 2, 0, 0)
+    end: new Date(2020, 6, 1, 2, 0, 0),
   },
   {
     id: 16,
-    title: "Video Record",
+    title: 'Video Record',
     start: new Date(2020, 6, 3, 15, 30, 0),
-    end: new Date(2020, 6, 4, 19, 0, 0)
-  }
+    end: new Date(2020, 6, 4, 19, 0, 0),
+  },
 ];
 
 const localizer = momentLocalizer(moment);
 
-let Timeslots = () => (
+let DateTimeCalendar = () => (
   <Calendar
     events={events}
     step={15}
@@ -30,4 +30,4 @@ let Timeslots = () => (
   />
 );
 
-export default Timeslots;
+export default DateTimeCalendar;

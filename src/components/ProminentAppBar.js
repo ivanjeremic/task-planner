@@ -1,12 +1,12 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     minHeight: 128,
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
 }));
 
@@ -32,26 +32,26 @@ export default function ProminentAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar className={classes.toolbar}>
           <IconButton
-            edge="start"
+            edge='start'
             className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h5" noWrap>
+          <Typography className={classes.title} variant='h5' noWrap>
             Material-UI
           </Typography>
-          <IconButton aria-label="search" color="inherit">
+          <IconButton aria-label='search' color='inherit'>
             <SearchIcon />
           </IconButton>
           <IconButton
-            aria-label="display more actions"
-            edge="end"
-            color="inherit"
+            aria-label='display more actions'
+            edge='end'
+            color='inherit'
           >
             <MoreIcon />
           </IconButton>

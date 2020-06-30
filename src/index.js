@@ -1,43 +1,41 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import "react-infinite-calendar/styles.css";
-import HomeScreen from "./pages/HomeScreen";
-import Calendar from "./components/Calender";
-import HomeScreenLayout from "./layouts/HomeScreenLayout";
-import CalendarScreenLayout from "./layouts/CalendarScreenLayout";
-import CreateTaskScreen from "./pages/CreateTaskScreen";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import CalendarScreen from "./pages/CalendarScreen";
-import { StateProvider } from "./context/StateContext";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CalendarPage from './pages/CalendarPage';
+import CreateTaskPage from './pages/CreateTaskPage';
+import { StateProvider } from './context/StateContext';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
+/* ************************************************************************************ */
+/* This is our Router wich is redirect us to a new view and render the needed Compnents */
+/* ************************************************************************************ */
 function RouterComponent() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          <HomeScreenLayout>
-            <HomeScreen />
-          </HomeScreenLayout>
+        <Route exact path='/'>
+          <HomePage />
         </Route>
-        <Route path="/calendar">
-          <CalendarScreenLayout>
-            <CalendarScreen />
-          </CalendarScreenLayout>
+        <Route path='/calendar'>
+          <CalendarPage />
         </Route>
-        <Route path="/add-task">
-          <CreateTaskScreen />
+        <Route path='/add-task'>
+          <CreateTaskPage />
         </Route>
       </Switch>
     </Router>
   );
 }
 
+/* *********************************************************************************************** */
+/* Our App entypoint wich targets the 'div' with the id "root", we render our RouterComponent here */
+/* *********************************************************************************************** */
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>
       <RouterComponent />
     </StateProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
