@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -29,23 +29,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TaskList(props) {
-  const [savedIndex, setIndex] = React.useState(null);
+  const classes = useStyles();
+  const [savedIndex, setIndex] = useState(null);
   const { setOpen, tasks, setTasks } = useAppState();
 
-  const handleClickOpen = (index) => {
+  /* ***************** */
+  /* Edit Task function*/
+  /* ***************** */
+  const editTaskHandler = (index) => {
     setIndex(index);
     setOpen(true);
-    console.log('savedIndex', savedIndex);
   };
 
-  const classes = useStyles();
-
+  /* ******************** */
+  /* Remove Task function */
+  /* ******************** */
   const removeTask = (index) => {
     const newTodos = [...tasks];
     newTodos.splice(index, 1);
     setTasks(newTodos);
   };
 
+  /* ***************** */
+  /* Edit Task function  TESTING OD*/
+  /* ***************** */
   const editTask = (index) => {
     const newTodos = [...tasks];
     newTodos[index].title = 'Bregovic';
@@ -65,7 +72,7 @@ export default function TaskList(props) {
           <div>
             <ListItem alignItems='flex-start'>
               <ListItemText primary={task.title} secondary={task.description} />
-              <IconButton onClick={() => handleClickOpen(index)}>
+              <IconButton onClick={() => editTaskHandler(index)}>
                 <EditIcon />
               </IconButton>
               <IconButton onClick={() => removeTask(index)}>

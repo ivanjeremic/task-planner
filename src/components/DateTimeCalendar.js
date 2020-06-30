@@ -19,15 +19,15 @@ const events = [
 
 const localizer = momentLocalizer(moment);
 
-let DateTimeCalendar = () => (
-  <Calendar
-    events={events}
-    step={15}
-    timeslots={8}
-    localizer={localizer}
-    defaultView={Views.WEEK}
-    defaultDate={new Date()}
-  />
-);
-
-export default DateTimeCalendar;
+export default function DateTimeCalendar() {
+  return (
+    <Calendar
+      events={events}
+      step={15}
+      timeslots={8}
+      localizer={localizer}
+      defaultView={Views.WEEK}
+      defaultDate={new Date()}
+    />
+  );
+}
