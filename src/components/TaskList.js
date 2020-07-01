@@ -188,9 +188,8 @@ export default function TaskList(props) {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>Done</MenuItem>
+                  <MenuItem value={20}>In Progress</MenuItem>
                 </Select>
               </FormControl>
               <button onClick={(e) => editTask(e, index)}>
