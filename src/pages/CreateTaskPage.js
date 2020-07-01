@@ -97,8 +97,6 @@ export default function CreateTaskPage(props) {
     setTitle,
     descrip,
     setdescrip,
-    status,
-    setStatus,
     setTasks,
   } = useAppState();
 
@@ -126,16 +124,14 @@ export default function CreateTaskPage(props) {
   /* ************************** */
   /* Function to add a new Task */
   /* ************************** */
-  const addTaskHandler = () => {
+  const addTaskHandler = (e) => {
+    e.preventDefault();
     setTasks([
       ...tasks,
       {
         id: uuidv4(),
         title: title,
         description: descrip,
-        date: "22.06.1989",
-        time: "22:00",
-        status: "open",
       },
     ]);
     setTitle("");
@@ -265,28 +261,6 @@ export default function CreateTaskPage(props) {
             value={descrip}
             onChange={(e) => setdescrip(e.target.value)}
           />
-          <div style={{ margin: "20px" }}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-controlled-open-select-label">
-                Status
-              </InputLabel>
-              <Select
-                labelId="demo-controlled-open-select-label"
-                id="demo-controlled-open-select"
-                open={open}
-                onClose={handleClose}
-                onOpen={handleOpen}
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Done</MenuItem>
-                <MenuItem value={20}>In Progress</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
           <Button
             onClick={addTaskHandler}
             variant="contained"

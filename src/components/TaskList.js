@@ -1,15 +1,19 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
+import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
+import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import StatusInfo from "./StatusInfo";
 import Button from "@material-ui/core/Button";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -43,6 +47,8 @@ export default function TaskList(props) {
     setTasks,
     setEditTitle,
     editTitle,
+    setStatus,
+    status,
     editDescription,
     setEditDescription,
   } = useAppState();
@@ -64,10 +70,11 @@ export default function TaskList(props) {
     setTasks(newTodos);
   };
 
-  /* ***************** */
-  /* Edit Task function  TESTING OD*/
-  /* ***************** */
-  const editTask = (index) => {
+  /* ****************** */
+  /* Edit Task function */
+  /* ****************** */
+  const editTask = (e, index) => {
+    e.preventDefault();
     const newTodos = [...tasks];
     newTodos[index].title = editTitle;
     newTodos[index].description = editDescription;
@@ -79,6 +86,22 @@ export default function TaskList(props) {
       title: "",
       description: "",
     });
+    setEditTitle("");
+    setEditDescription("");
+  };
+
+  /* ************************************************** */
+  /* Set the clicked task values in the Edit Task form. */
+  /* ************************************************** */
+  const runEditMode = ({ title, description, taskid, editmodus }) => {
+    setEditTitle(title);
+    setEditDescription(description);
+    setEditMode(
+      {
+        editID: taskid,
+        editmodus: editmodus,
+      },
+    );
   };
 
   return (
@@ -109,12 +132,12 @@ export default function TaskList(props) {
                 />
                 <IconButton
                   onClick={() =>
-                    setEditMode(
+                    runEditMode(
                       {
-                        editID: task.id,
-                        editmodus: true,
                         title: task.title,
                         description: task.description,
+                        taskid: task.id,
+                        editmodus: true,
                       },
                     )}
                 >
@@ -130,28 +153,49 @@ export default function TaskList(props) {
               style={editMode.editID !== task.id ? { display: "none" } : null}
             >
               <TextField
-                autoFocus
                 margin="dense"
-                id="name"
                 label="Title"
                 type="text"
                 fullWidth
-                value={editTitle}
+                variant="outlined"
+                value={editTitle === "" ? task.title : editTitle}
                 onChange={(e) => setEditTitle(e.target.value)}
               />
               <TextField
-                autoFocus
                 margin="dense"
-                id="name"
                 label="Description"
                 type="text"
+                multiline
+                rowsMax={4}
                 fullWidth
-                value={editDescription}
+                variant="outlined"
+                value={editDescription === ""
+                  ? task.description
+                  : editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
               />
-              <IconButton onClick={() => editTask(index)}>
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="demo-simple-select-outlined-label">
+                  Age
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  label="Status"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={10}>Ten</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+              <button onClick={(e) => editTask(e, index)}>
                 <p>EDIT</p>
-              </IconButton>
+              </button>
             </div>
           </Fragment>
         ))}

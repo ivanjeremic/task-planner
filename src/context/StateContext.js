@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext } from "react";
 
 /* *************************************************** */
 /* Create the Context wich holds the State of the App. */
@@ -15,12 +15,12 @@ const StateProvider = (props) => {
   /* Our States, created with useState Hook */
   /* ************************************** */
   const [tasks, setTasks] = useState([]);
-  const [title, setTitle] = useState('');
-  const [descrip, setdescrip] = useState('');
-  const [status, setStatus] = useState('');
+  const [title, setTitle] = useState("");
+  const [descrip, setdescrip] = useState("");
   const [open, setOpen] = useState(false);
-  const [editTitle, setEditTitle] = useState('');
-  const [editDescription, setEditDescription] = useState('');
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [status, setStatus] = useState("");
 
   /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
   /* return the StateContext Provider wich will take any component as children,
