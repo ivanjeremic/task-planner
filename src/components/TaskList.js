@@ -11,15 +11,9 @@ import FormControl from "@material-ui/core/FormControl";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import StatusInfo from "./StatusInfo";
-import Button from "@material-ui/core/Button";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { useAppState } from "../context/StateContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TaskList(props) {
   const classes = useStyles();
-  const [savedIndex, setIndex] = useState(null);
   const [editMode, setEditMode] = useState({
     editID: null,
     editmodus: false,
@@ -42,7 +35,6 @@ export default function TaskList(props) {
     description: "",
   });
   const {
-    setOpen,
     tasks,
     setTasks,
     setEditTitle,
@@ -52,14 +44,6 @@ export default function TaskList(props) {
     editDescription,
     setEditDescription,
   } = useAppState();
-
-  /* ***************** */
-  /* Edit Task function*/
-  /* ***************** */
-  const editTaskHandler = (index) => {
-    setIndex(index);
-    setOpen(true);
-  };
 
   /* ******************** */
   /* Remove Task function */
