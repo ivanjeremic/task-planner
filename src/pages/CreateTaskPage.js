@@ -7,10 +7,6 @@ import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import HomeIcon from "@material-ui/icons/Home";
@@ -89,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateTaskPage(props) {
   const { window } = props;
   const [mobileOpen] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
 
   const {
     tasks,
@@ -104,18 +99,6 @@ export default function CreateTaskPage(props) {
   const theme = useTheme();
 
   let history = useHistory();
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  function handleClick() {
-    history.push("/");
-  }
 
   function redirectAddTask() {
     history.push("/");
@@ -140,35 +123,6 @@ export default function CreateTaskPage(props) {
     redirectAddTask();
   };
 
-  /* Our Drawer wich we use */
-  /*   const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  ); */
-
   // Material-UI specific code.
   const container = window !== undefined
     ? () => window().document.body
@@ -188,7 +142,7 @@ export default function CreateTaskPage(props) {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleClick}
+            onClick={redirectAddTask}
             className={classes.menuButton}
           >
             <HomeIcon />
@@ -217,7 +171,7 @@ export default function CreateTaskPage(props) {
             variant="temporary"
             anchor={theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
-            onClose={handleClick}
+            onClose={redirectAddTask}
             classes={{
               paper: classes.drawerPaper,
             }}
