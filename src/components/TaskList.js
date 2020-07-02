@@ -174,12 +174,13 @@ export default function TaskList(props) {
                 onChange={(e) => setEditDescription(e.target.value)}
               />
               <FormControl
-                style={{ minWidth: 170 }}
+                style={{ minWidth: 170, marginTop: "2em" }}
                 variant="outlined"
                 className={classes.formControl}
               >
                 <InputLabel id="demo-simple-select-outlined-label">
-                  {task.done === "" ? task.inprogress : task.done}
+                  {task.done === "done" ? "Task Done" : ""}
+                  {task.inprogress === "inprogress" ? "In Progress" : ""}
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-outlined-label"
