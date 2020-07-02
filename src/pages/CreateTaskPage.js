@@ -93,6 +93,10 @@ export default function CreateTaskPage(props) {
     descrip,
     setdescrip,
     setTasks,
+    done,
+    setDone,
+    inprogress,
+    setInProgress,
   } = useAppState();
 
   const classes = useStyles();
@@ -115,6 +119,8 @@ export default function CreateTaskPage(props) {
         id: uuidv4(),
         title: title,
         description: descrip,
+        done: done,
+        inprogress: inprogress,
       },
     ]);
     setTitle("");

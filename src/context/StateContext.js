@@ -14,13 +14,24 @@ const StateProvider = (props) => {
   /* ************************************** */
   /* Our States, created with useState Hook */
   /* ************************************** */
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: "Poland",
+      description: "something",
+      done: "done",
+      inprogress: "",
+    },
+  ]);
   const [title, setTitle] = useState("");
   const [descrip, setdescrip] = useState("");
   const [open, setOpen] = useState(false);
   const [editTitle, setEditTitle] = useState("");
   const [editDescription, setEditDescription] = useState("");
-  const [status, setStatus] = useState("");
+  const [done, setDone] = useState("");
+  const [editDone, setEditDone] = useState("");
+  const [editInProgress, setEditInProgress] = useState("");
+  const [inprogress, setInProgress] = useState("");
 
   /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
   /* return the StateContext Provider wich will take any component as children,
@@ -32,8 +43,6 @@ const StateProvider = (props) => {
       value={{
         open,
         setOpen,
-        status,
-        setStatus,
         tasks,
         title,
         setTitle,
@@ -44,6 +53,14 @@ const StateProvider = (props) => {
         setEditTitle,
         editDescription,
         setEditDescription,
+        done,
+        setDone,
+        inprogress,
+        setInProgress,
+        editDone,
+        setEditDone,
+        editInProgress,
+        setEditInProgress,
       }}
     >
       {children}

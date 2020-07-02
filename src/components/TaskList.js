@@ -1,8 +1,9 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -39,10 +40,12 @@ export default function TaskList(props) {
     setTasks,
     setEditTitle,
     editTitle,
-    setStatus,
-    status,
+    editDone,
+    setEditDone,
     editDescription,
     setEditDescription,
+    editInProgress,
+    setEditInProgress,
   } = useAppState();
 
   /* ******************** */
@@ -62,7 +65,8 @@ export default function TaskList(props) {
     const newTodos = [...tasks];
     newTodos[index].title = editTitle;
     newTodos[index].description = editDescription;
-    /* newTodos[index].status = "done"; */
+    newTodos[index].done = editDone;
+    newTodos[index].inprogress = editDone;
     setTasks(newTodos);
     setEditMode({
       editID: null,
@@ -72,14 +76,23 @@ export default function TaskList(props) {
     });
     setEditTitle("");
     setEditDescription("");
+    setEditDone("");
   };
 
   /* ************************************************** */
   /* Set the clicked task values in the Edit Task form. */
   /* ************************************************** */
-  const runEditMode = ({ title, description, taskid, editmodus }) => {
+  const runEditMode = (
+    { title, description, taskid, editmodus, taskdone, taskinprogress },
+  ) => {
     setEditTitle(title);
     setEditDescription(description);
+    if (editDone === "done") {
+      setEditDone(taskdone);
+    }
+    if (editDone === "inprogress") {
+      setEditDone(taskinprogress);
+    }
     setEditMode(
       {
         editID: taskid,
@@ -122,6 +135,8 @@ export default function TaskList(props) {
                         description: task.description,
                         taskid: task.id,
                         editmodus: true,
+                        taskdone: task.done,
+                        taskinprogress: task.inprogress,
                       },
                     )}
                 >
@@ -158,27 +173,38 @@ export default function TaskList(props) {
                   : editDescription}
                 onChange={(e) => setEditDescription(e.target.value)}
               />
-              <FormControl variant="outlined" className={classes.formControl}>
+              <FormControl
+                style={{ minWidth: 170 }}
+                variant="outlined"
+                className={classes.formControl}
+              >
                 <InputLabel id="demo-simple-select-outlined-label">
-                  Age
+                  {task.done === "" ? task.inprogress : task.done}
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
+                  value={editDone}
+                  onChange={(e) => setEditDone(e.target.value)}
                   label="Status"
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={10}>Done</MenuItem>
-                  <MenuItem value={20}>In Progress</MenuItem>
+                  <MenuItem value="done">Done</MenuItem>
+                  <MenuItem value="inprogress">In Progress</MenuItem>
                 </Select>
               </FormControl>
-              <button onClick={(e) => editTask(e, index)}>
+              <br />
+              <Button
+                style={{ margin: "1em", width: "130px" }}
+                variant="contained"
+                color="primary"
+                disableElevation
+                onClick={(e) => editTask(e, index)}
+              >
                 <p>EDIT</p>
-              </button>
+              </Button>
             </div>
           </Fragment>
         ))}
